@@ -1,0 +1,47 @@
+/*
+  water_sensor_test.ino
+ 
+
+  Sono utilizzati i seguenti pin
+  Pin +5V         -> Alimentazione sensore
+  Pin GND         -> GND sensore /led
+  Pin Digitale 2  -> Led Rouge
+  Pin Digitale 3  -> led bleu
+  Pin Analogico 0 -> Segnale sensore
+
+  
+*/
+
+int sensor = 0; // 
+int buzzeur    = 4; //
+int rouge     = 3; //
+int bleu     = 2; //
+int reference = 200; // Imposta valore soglia
+
+void setup() {
+
+  Serial.begin(9600);  // initialisation du por serie
+  pinMode (rouge, OUTPUT);    //
+  pinMode (bleu, OUTPUT);  
+  pinMode (buzzeur, OUTPUT); //
+  digitalWrite(bleu, HIGH);  
+}
+void loop() 
+{
+  // recupération de la valeur prise
+  int lecture = analogRead(sensor);
+  
+  Serial.println(lecture);
+  if (lecture >= reference) {
+    digitalWrite(bleu, LOW);   // led bleu off
+    digitalWrite(rouge, HIGH);
+    digitalWrite(rouge, HIGH);// led bouge on
+  }
+  else {
+    digitalWrite(bleu, HIGH);  //
+    digitalWrite(rouge, LOW); 
+    digitalWrite(buzzeur, LOW);//
+  }
+  // Pause 
+  delay(100);
+}
